@@ -33,9 +33,7 @@ public class ProcessRepositoryDefault implements ProcessRepository {
 
     @Override
     public void killAllProcessesByGroup(Priority priority) {
-        processes.stream()
-                .filter(p -> p.getPriority() == priority)
-                .forEach(processes::remove);
+        processes.removeIf(p -> p.getPriority() == priority);
     }
 
     @Override
