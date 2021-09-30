@@ -8,21 +8,21 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ProcessRepositoryFIFOTest {
+class ProcessRepositoryPriorityBasedTest {
 
     private ProcessRepository processRepository;
 
     @BeforeEach
     void before() {
-        processRepository = new ProcessRepositoryFIFO(3);
+        processRepository = new ProcessRepositoryPriorityBased(3);
     }
 
     @Test
     void addProcessTest() {
         processRepository.addProcess(new Process(Process.Priority.LOW));
-        Process process1 = new Process(Process.Priority.HIGH);
+        Process process1 = new Process(Process.Priority.MEDIUM);
         processRepository.addProcess(process1);
-        Process process2 = new Process(Process.Priority.MEDIUM);
+        Process process2 = new Process(Process.Priority.HIGH);
         processRepository.addProcess(process2);
         Process process3 = new Process(Process.Priority.HIGH);
         processRepository.addProcess(process3);

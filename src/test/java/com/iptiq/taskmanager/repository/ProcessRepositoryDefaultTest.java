@@ -25,7 +25,7 @@ class ProcessRepositoryDefaultTest {
         processRepository.addProcess(new Process(Priority.MEDIUM));
         processRepository.addProcess(new Process(Priority.HIGH));
 
-        List<Process> result = processRepository.listAllProcesses();
+        List<Process> result = processRepository.listAllProcessesSorted();
 
         assertThat(result).hasSize(3);
     }
@@ -39,7 +39,7 @@ class ProcessRepositoryDefaultTest {
         Process process3 = new Process(Priority.MEDIUM);
         processRepository.addProcess(process3);
 
-        List<Process> result = processRepository.listAllProcesses();
+        List<Process> result = processRepository.listAllProcessesSorted();
 
         assertThat(result).containsExactly(process1, process2, process3);
     }
@@ -54,7 +54,7 @@ class ProcessRepositoryDefaultTest {
         processRepository.addProcess(process3);
 
         processRepository.killProcess(process1);
-        List<Process> result = processRepository.listAllProcesses();
+        List<Process> result = processRepository.listAllProcessesSorted();
 
         assertThat(result).containsExactly(process2, process3);
     }
@@ -69,7 +69,7 @@ class ProcessRepositoryDefaultTest {
         processRepository.addProcess(new Process(Priority.MEDIUM));
 
         processRepository.killAllProcessesByGroup(Priority.MEDIUM);
-        List<Process> result = processRepository.listAllProcesses();
+        List<Process> result = processRepository.listAllProcessesSorted();
 
         assertThat(result).containsExactly(process1, process2);
     }
@@ -82,7 +82,7 @@ class ProcessRepositoryDefaultTest {
         processRepository.addProcess(new Process(Priority.HIGH));
 
         processRepository.killAllProcesses();
-        List<Process> result = processRepository.listAllProcesses();
+        List<Process> result = processRepository.listAllProcessesSorted();
 
         assertThat(result).isEmpty();
     }

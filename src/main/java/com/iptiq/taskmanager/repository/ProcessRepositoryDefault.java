@@ -1,5 +1,6 @@
 package com.iptiq.taskmanager.repository;
 
+import com.iptiq.taskmanager.domain.AssignedProcess;
 import com.iptiq.taskmanager.domain.Process;
 import com.iptiq.taskmanager.domain.Process.Priority;
 
@@ -10,30 +11,34 @@ import java.util.concurrent.BlockingQueue;
 
 public class ProcessRepositoryDefault implements ProcessRepository {
 
-    private final BlockingQueue<Process> processes;
+    private final BlockingQueue<AssignedProcess> processes;
 
     public ProcessRepositoryDefault(int capacity) {
         this.processes = new ArrayBlockingQueue<>(capacity);
     }
 
-    @Override
-    public void addProcess(Process process) {
-        processes.offer(process);
+    public ProcessRepositoryDefault(BlockingQueue<AssignedProcess> processes) {
+        this.processes = processes;
     }
 
     @Override
-    public List<Process> listAllProcesses() {
+    public void addProcess(Process process) {
+        processes.offer(new AssignedProcess(process));
+    }
+
+    @Override
+    public List<AssignedProcess> listAllAssignedProcesses() {
         return new ArrayList<>(processes);
     }
 
     @Override
     public void killProcess(Process process) {
-        processes.remove(process);
+        processes.removeIf(ap -> ap.getProcess().equals(process));
     }
 
     @Override
     public void killAllProcessesByGroup(Priority priority) {
-        processes.removeIf(p -> p.getPriority() == priority);
+        processes.removeIf(ap -> ap.getProcess().getPriority() == priority);
     }
 
     @Override

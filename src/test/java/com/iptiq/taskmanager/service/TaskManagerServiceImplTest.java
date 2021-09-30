@@ -37,7 +37,7 @@ class TaskManagerServiceImplTest {
     @Test
     void listAllProcessesTest() {
         List<Process> processes = Collections.singletonList(process);
-        when(processRepository.listAllProcesses()).thenReturn(processes);
+        when(processRepository.listAllProcessesSorted()).thenReturn(processes);
 
         List<Process> result = taskManagerService.listAllProcesses();
 

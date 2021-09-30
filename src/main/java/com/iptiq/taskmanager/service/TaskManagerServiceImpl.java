@@ -21,7 +21,7 @@ public class TaskManagerServiceImpl implements TaskManagerService {
 
     @Override
     public List<Process> listAllProcesses() {
-        return processRepository.listAllProcesses();
+        return processRepository.listAllProcessesSorted();
     }
 
     @Override

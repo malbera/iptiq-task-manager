@@ -21,12 +21,6 @@ public class Process {
         return priority;
     }
 
-    public enum Priority {
-        LOW,
-        MEDIUM,
-        HIGH
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -39,5 +33,21 @@ public class Process {
     @Override
     public int hashCode() {
         return Objects.hash(id, priority);
+    }
+
+    public enum Priority {
+        LOW(1),
+        MEDIUM(10),
+        HIGH(20);
+
+        private final int priorityValue;
+
+        Priority(int priorityValue) {
+            this.priorityValue = priorityValue;
+        }
+
+        public int getPriorityValue() {
+            return priorityValue;
+        }
     }
 }
